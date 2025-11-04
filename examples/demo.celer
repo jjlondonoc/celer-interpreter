@@ -1,0 +1,128 @@
+*-- DEMO COMPLETO CELER
+
+variable i : int = 0;
+const greeting : string = "Hola";
+
+Function add(a : int, b : int) -> int {
+  return a + b;
+}
+
+Function abs(x : int) -> int {
+  return x < 0 ? { true: 0 - x : false: x };
+}
+
+Function fib(n : int) -> int {
+  variable a : int = 0;
+  variable b : int = 1;
+  for (n > 0) {
+    variable tmp : int = a + b;
+    a = b;
+    b = tmp;
+    n = n - 1;
+  }
+  return a;
+}
+
+Function fact(n : int) -> int {
+  variable r : int = 1;
+  for (variable k : int = 2; k <= n; k = k + 1) {
+    r = r * k;
+  }
+  return r;
+}
+
+Function sumTo(n : int) -> int {
+  variable s : int = 0;
+  for (variable k : int = 1; k <= n; k = k + 1) {
+    s += k;
+  }
+  return s;
+}
+
+Function firstDivisible(limit : int, denom : int) -> int {
+  variable k : int = 0;
+  for (k < limit) {
+    k += 1;
+    if (k % denom == 0) {
+      return k;
+    } else {
+      continue;
+    }
+  }
+  return -1;
+}
+
+Function isPrime(n : int) -> bool {
+  if (n < 2) { return false; }
+  if (n == 2) { return true; }
+  if (n % 2 == 0) { return false; }
+  variable d : int = 3;
+  for (d * d <= n) {
+    if (n % d == 0) { return false; }
+    d = d + 2;
+  }
+  return true;
+}
+
+Function clamp(x : int, lo : int, hi : int) -> int {
+  return x < lo ? { true: lo : false: (x > hi ? { true: hi : false: x }) };
+}
+
+Function logicDemo(a : bool, b : bool) -> bool {
+  return (a && b) || (!a && b) || (a && !b);
+}
+
+Function floatDemo(x : float) -> float {
+  return (x * 2.5) / 2.0 + 1.5;
+}
+
+Function concatDemo(a : string, b : string) -> string {
+  return a + b;
+}
+
+Function main() -> void {
+  print("=== Demo Celer ===");
+  print("greeting:", greeting);
+
+  i = add(10, 32);
+  print("add(10,32) ->", i);
+
+  print("abs(-7) ->", abs(-7));
+
+  print("fib(0) ->", fib(0));
+  print("fib(1) ->", fib(1));
+  print("fib(8) ->", fib(8));
+
+  print("fact(5) ->", fact(5));
+  print("sumTo(10) ->", sumTo(10));
+
+  print("firstDivisible(20, 7) ->", firstDivisible(20, 7));
+
+  print("isPrime(1) ->", isPrime(1));
+  print("isPrime(2) ->", isPrime(2));
+  print("isPrime(97) ->", isPrime(97));
+
+  print("clamp(5, 10, 20) ->", clamp(5,10,20));
+  print("clamp(15, 10, 20) ->", clamp(15,10,20));
+  print("clamp(25, 10, 20) ->", clamp(25,10,20));
+
+  print("logicDemo(true,false) ->", logicDemo(true, false));
+
+  variable xf : float = 3.0;
+  print("floatDemo(3.0) ->", floatDemo(xf));
+
+  print("concatDemo(\"hola \", \"mundo\") ->", concatDemo("hola ", "mundo"));
+
+  for (variable t : int = 0; t < 10; t = t + 1) {
+    if (t == 3) { continue; }
+    if (t == 5) { print("break at", t); break; }
+  }
+
+  variable flag : bool = (10 + 2) * 3 == 36 ? { true: true : false: false };
+  print("ternary flag ->", flag);
+
+  print("línea1\nlínea2\tTAB\\slash\"quote");
+
+  return;
+}
+

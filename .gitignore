@@ -1,0 +1,25 @@
+# Build artifacts
+/build/
+*.exe
+*.out
+*.obj
+*.o
+*.dll
+*.so
+*.a
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+*.old
