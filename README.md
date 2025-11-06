@@ -1,48 +1,48 @@
-# Celer — C-like Interpreter in C
+# Celer — Intérprete en C
 
-**Celer** is a lightweight, statically-typed, C-inspired interpreted language implemented entirely in **C**.
-It was created to explore how a real language can be built from scratch — from lexer and parser to AST and evaluator — while maintaining a simple, efficient, and educational design.
-
----
-
-## Philosophy
-
-> *“C-like in spirit: control, efficiency, and execution close to the metal.”*
-
-Celer offers:
-
-* Static typing with a small set of primitive types.
-* Familiar syntax for anyone who knows C.
-* A clear and modular architecture:  `token → lexer → parser → AST → evaluator → REPL`.
-* Fully written in portable, dependency-free C99.
+**Celer** es un lenguaje interpretado, tipado estáticamente e inspirado en C, implementado completamente en **C99**.
+Fue creado para explorar cómo se puede construir un lenguaje desde cero —desde el analizador léxico y el parser hasta el AST y el evaluador— manteniendo un diseño simple, eficiente y educativo.
 
 ---
 
-## Language Specification
+## Filosofía
 
-### Data Types
+> *“Con espíritu de C: control, eficiencia y ejecución cercana al metal.”*
 
-| Type     | Description             | Example(s)             |
+Celer ofrece:
+
+* Tipado estático con un conjunto reducido de tipos primitivos.
+* Sintaxis familiar para cualquiera que conozca C.
+* Arquitectura modular y clara: `token → lexer → parser → AST → evaluator → REPL`.
+* Totalmente escrito en C99 portátil y sin dependencias externas.
+
+---
+
+## Especificación del Lenguaje
+
+### Tipos de Datos
+
+| Tipo     | Descripción             | Ejemplo(s)             |
 | -------- | ----------------------- | ---------------------- |
-| `int`    | Integer                 | `0`, `-12`, `42`       |
-| `float`  | Floating point          | `3.14`, `-0.5`, `10.0` |
-| `bool`   | Boolean                 | `true`, `false`        |
-| `string` | Text enclosed in quotes | `"hello"`, `"hola\n"`  |
+| `int`    | Entero                  | `0`, `-12`, `42`       |
+| `float`  | Número en coma flotante | `3.14`, `-0.5`, `10.0` |
+| `bool`   | Booleano                | `true`, `false`        |
+| `string` | Texto entre comillas    | `"hola"`, `"linea\n"`  |
 
 ---
 
-### Literals and Escapes
+### Literales y Secuencias de Escape
 
-Strings support escape sequences:
+Las cadenas (`string`) soportan secuencias de escape:
 
-| Escape | Meaning      |
-| :----- | :----------- |
-| `\n`   | newline      |
-| `\t`   | tab          |
-| `\\`   | backslash    |
-| `\"`   | double quote |
+| Escape | Significado     |
+| :----- | :-------------- |
+| `\n`   | Nueva línea     |
+| `\t`   | Tabulación      |
+| `\\`   | Barra invertida |
+| `\"`   | Comilla doble   |
 
-Example:
+Ejemplo:
 
 ```celer
 const msg : string = "línea1\nlínea2\tTAB\\slash\"quote";
@@ -50,34 +50,34 @@ const msg : string = "línea1\nlínea2\tTAB\\slash\"quote";
 
 ---
 
-### Comments
+### Comentarios
 
 ```celer
-*-- This is a line comment
+*-- Comentario de una línea
 
-/* This is a
-   block comment */
+/* Comentario
+   de varias líneas */
 ```
 
 ---
 
-### Variables and Constants
+### Variables y Constantes
 
-Declarations are always terminated with `;`.
+Cada declaración debe terminar con `;`.
 
 ```celer
 variable x : int = 10;
-const greeting : string = "hola";
+const saludo : string = "hola";
 ```
 
-`variable` defines a mutable value;
-`const` defines an immutable constant.
+`variable` define un valor mutable.
+`const` define una constante inmutable.
 
 ---
 
-### Functions
+### Funciones
 
-Defined using the keyword **Function** (with capital F).
+Definidas con la palabra reservada **Function** (con F mayúscula).
 
 ```celer
 Function suma(a : int, b : int) -> int {
@@ -85,29 +85,29 @@ Function suma(a : int, b : int) -> int {
 }
 ```
 
-* Parameters use the same `name : type` format.
-* The return type follows `->`.
-* Functions are first-class and can be declared in any order.
+* Los parámetros usan la notación `nombre : tipo`.
+* El tipo de retorno se indica después de `->`.
+* Las funciones pueden declararse en cualquier orden.
 
 ---
 
-### Control Flow
+### Control de Flujo
 
 #### **if / else**
 
 ```celer
 if (x > 0) {
-  print("Positive");
+  print("Positivo");
 } else {
-  print("Non-positive");
+  print("No positivo");
 }
 ```
 
-#### **for loops**
+#### **for**
 
-Celer supports two `for` forms:
+Celer soporta dos formas de `for`:
 
-**While-like:**
+**Estilo while:**
 
 ```celer
 for (x < 10) {
@@ -116,7 +116,7 @@ for (x < 10) {
 }
 ```
 
-**C-like:**
+**Estilo C:**
 
 ```celer
 for (variable i : int = 0; i < 3; i = i + 1) {
@@ -124,19 +124,19 @@ for (variable i : int = 0; i < 3; i = i + 1) {
 }
 ```
 
-Supports `break` and `continue`.
+Soporta `break` y `continue`.
 
 ---
 
-### Ternary Operator
+### Operador Ternario
 
-Special structured ternary:
+Forma estructurada especial:
 
 ```celer
-condition ? { true: expr_if_true : false: expr_if_false };
+condición ? { true: expresión_si_true : false: expresión_si_false };
 ```
 
-Example:
+Ejemplo:
 
 ```celer
 variable y : int = x > 5 ? { true: 1 : false: 0 };
@@ -144,50 +144,50 @@ variable y : int = x > 5 ? { true: 1 : false: 0 };
 
 ---
 
-### Operators
+### Operadores
 
-| Category   | Operators                                  |   |        |
-| :--------- | :----------------------------------------- | - | ------ |
-| Arithmetic | `+`, `-`, `*`, `/`, `%`                    |   |        |
-| Comparison | `==`, `!=`, `<`, `<=`, `>`, `>=`           |   |        |
-| Logical    | `&&`, `                                    |   | `, `!` |
-| Assignment | `=`, `+=`, `-=`, `*=`, `/=`, `%=`          |   |        |
-| Others     | `()`, `{}`, `[]`, `,`, `;`, `:`, `?`, `->` |   |        |
+| Categoría   | Operadores                                 |   |        |
+| :---------- | :----------------------------------------- | - | ------ |
+| Aritméticos | `+`, `-`, `*`, `/`, `%`                    |   |        |
+| Comparación | `==`, `!=`, `<`, `<=`, `>`, `>=`           |   |        |
+| Lógicos     | `&&`, `                                    |   | `, `!` |
+| Asignación  | `=`, `+=`, `-=`, `*=`, `/=`, `%=`          |   |        |
+| Otros       | `()`, `{}`, `[]`, `,`, `;`, `:`, `?`, `->` |   |        |
 
 ---
 
-### Built-in Functions
+### Funciones Integradas
 
-| Function     | Description                                                      |
-| ------------ | ---------------------------------------------------------------- |
-| `print(...)` | Prints all arguments separated by spaces, followed by a newline. |
+| Función      | Descripción                                                                       |
+| ------------ | --------------------------------------------------------------------------------- |
+| `print(...)` | Imprime todos los argumentos separados por espacios y termina con salto de línea. |
 
-Example:
+Ejemplo:
 
 ```celer
-print("hello", 42, true);
+print("hola", 42, true);
 ```
 
-Output:
+Salida:
 
 ```
-hello 42 true
+hola 42 true
 ```
 
 ---
 
-## Project Structure
+## Estructura del Proyecto
 
 ```
 celer/
 ├── include/
-│   ├── token.h      # Token type definitions
-│   ├── lexer.h      # Lexical analyzer
-│   ├── ast.h        # Abstract Syntax Tree structures
-│   ├── parser.h     # Recursive-descent parser
-│   ├── value.h      # Runtime value representation
-│   ├── env.h        # Variable/function environment
-│   ├── eval.h       # AST evaluator (interpreter)
+│   ├── token.h      # Definición de tipos de token
+│   ├── lexer.h      # Analizador léxico
+│   ├── ast.h        # Árbol de sintaxis abstracta
+│   ├── parser.h     # Parser de descenso recursivo
+│   ├── value.h      # Representación de valores en tiempo de ejecución
+│   ├── env.h        # Entorno (variables, funciones, builtins)
+│   ├── eval.h       # Evaluador / intérprete
 │
 ├── src/
 │   ├── token.c
@@ -197,36 +197,36 @@ celer/
 │   ├── value.c
 │   ├── env.c
 │   ├── eval.c
-│   ├── run.c        # Runs .celer files (main runner)
-│   └── repl.c       # Interactive REPL
+│   ├── run.c        # Ejecuta archivos .celer (runner principal)
+│   └── repl.c       # REPL interactivo
 │
 ├── examples/
-│   ├── demo.celer   # Comprehensive example
-│   └── mini.celer   # Minimal example
+│   ├── demo.celer   # Ejemplo completo
+│   └── mini.celer   # Ejemplo mínimo
 │
-├── build/           # Compiled executables (ignored in Git)
+├── build/           # Binarios compilados (ignorados en Git)
 └── README.md
 ```
 
 ---
 
-## File Responsibilities
+## Descripción de Archivos
 
-| File                    | Purpose                                                                                                   |
-| ----------------------- | --------------------------------------------------------------------------------------------------------- |
-| **token.h / token.c**   | Define tokens and their string representations.                                                           |
-| **lexer.h / lexer.c**   | Convert source code into tokens; handle comments, literals, and errors.                                   |
-| **ast.h / ast.c**       | Define and create nodes for the Abstract Syntax Tree (AST).                                               |
-| **parser.h / parser.c** | Parse tokens into structured AST nodes using recursive descent.                                           |
-| **value.h / value.c**   | Define runtime value types (`int`, `bool`, `float`, `string`) and implement operations between them.      |
-| **env.h / env.c**       | Manage variable scopes, constants, user functions, and built-in functions like `print`.                   |
-| **eval.h / eval.c**     | Evaluate AST nodes, execute statements, expressions, and control flow.                                    |
-| **run.c**               | The main file-runner — loads `.celer` source files, executes top-level declarations, then calls `main()`. |
-| **repl.c**              | Interactive Read–Eval–Print Loop that keeps the environment between inputs.                               |
+| Archivo                 | Propósito                                                                         |
+| ----------------------- | --------------------------------------------------------------------------------- |
+| **token.h / token.c**   | Define los tokens y sus representaciones.                                         |
+| **lexer.h / lexer.c**   | Convierte texto fuente en tokens, maneja comentarios y literales.                 |
+| **ast.h / ast.c**       | Define los nodos del Árbol de Sintaxis Abstracta (AST).                           |
+| **parser.h / parser.c** | Analiza los tokens y construye el AST.                                            |
+| **value.h / value.c**   | Define los tipos de valores en tiempo de ejecución y las operaciones entre ellos. |
+| **env.h / env.c**       | Maneja entornos, variables, constantes, funciones y builtins.                     |
+| **eval.h / eval.c**     | Evalúa el AST, ejecuta el flujo de control y las expresiones.                     |
+| **run.c**               | Carga y ejecuta archivos `.celer`, llamando automáticamente a `main()`.           |
+| **repl.c**              | Proporciona un REPL interactivo persistente.                                      |
 
 ---
 
-## Example Program
+## Ejemplo de Programa
 
 ```celer
 variable i : int = 0;
@@ -253,7 +253,7 @@ Function main() -> void {
 }
 ```
 
-Output:
+Salida:
 
 ```
 ok, i == 42
@@ -265,7 +265,7 @@ ternario -> i= 1
 
 ---
 
-## Build Instructions
+## Compilación
 
 ### Windows (MinGW)
 
@@ -281,7 +281,7 @@ cc -std=c99 -Wall -Wextra -O2 -Iinclude src/*.c -o build/celer
 
 ---
 
-## Running `.celer` Files
+## Ejecución de Archivos `.celer`
 
 **Windows**
 
@@ -295,13 +295,13 @@ build\celer.exe examples\demo.celer
 ./build/celer examples/demo.celer
 ```
 
-> Only the `main()` function of the file is executed automatically, similar to C.
+> Solo se ejecuta la función `main()` del archivo, al igual que en C.
 
 ---
 
-## Using the REPL
+## Uso del REPL
 
-### Compile REPL
+### Compilar REPL
 
 ```bat
 gcc -std=c99 -Wall -Wextra -O2 -Iinclude ^
@@ -309,13 +309,13 @@ gcc -std=c99 -Wall -Wextra -O2 -Iinclude ^
   -o build/celer_repl.exe
 ```
 
-### Run REPL
+### Ejecutar REPL
 
 ```bat
 build\celer_repl.exe
 ```
 
-Example session:
+Ejemplo de sesión:
 
 ```
 Celer REPL
@@ -339,16 +339,17 @@ Adiós!
 
 ---
 
-## Error Handling
+## Manejo de Errores
 
-Celer performs full **lexical and syntactic validation**:
+Celer realiza validación **léxica y sintáctica completa**:
 
-* Missing semicolons → `Se esperaba ';' al final de la sentencia`
-* Unclosed parentheses/braces → `Se esperaba ')'` / `Se esperaba '}'`
-* Unclosed strings/comments → `Unterminated string/block comment`
-* Invalid tokens → `TOK_ILLEGAL`
+* Falta de punto y coma → `Se esperaba ';' al final de la sentencia`
+* Paréntesis o llaves sin cerrar → `Se esperaba ')'` / `Se esperaba '}'`
+* Cadenas o comentarios sin cerrar → `Unterminated string/block comment`
+* Tokens inválidos → `TOK_ILLEGAL`
 
-When a parse error occurs:
+En caso de error de parseo:
 
-* `.celer` files: execution stops and all errors are printed.
-* REPL: the chunk is rejected but the session continues.
+* En archivos `.celer`: se muestran los errores y se detiene la ejecución.
+* En el REPL: el bloque se descarta y la sesión continúa.
+
